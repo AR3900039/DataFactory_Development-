@@ -1,0 +1,9 @@
+{
+	"name": "etl-covid-report-development",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "746eebb9-8241-4971-94aa-c9d3ed79b86d",
+		"tenantId": "b441b50e-7ec6-4b6d-833f-7e538426f468"
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"name": "Type-3_Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/population-raw/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/3362db9a-4a35-4f54-91af-20431e202b9b/resourceGroups/covid-report-development/providers/Microsoft.Storage/storageAccounts/sourcecoviddata",
+			"events": [
+				"Microsoft.Storage.BlobDeleted",
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
