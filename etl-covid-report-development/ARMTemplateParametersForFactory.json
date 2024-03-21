@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "etl-covid-report-development"
+		},
+		"ls_ablob_covidreportingsa_connectionString": {
+			"value": ""
+		},
+		"ls_adls_covidreporting_dl_accountKey": {
+			"value": ""
+		},
+		"ls_adls_covidreporting_dl_properties_typeProperties_url": {
+			"value": "https://targetcoviddatalake.dfs.core.windows.net/"
+		},
+		"Type-3_Trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/3362db9a-4a35-4f54-91af-20431e202b9b/resourceGroups/covid-report-development/providers/Microsoft.Storage/storageAccounts/sourcecoviddata"
+		}
+	}
+}
