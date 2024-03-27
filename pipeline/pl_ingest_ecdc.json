@@ -48,14 +48,22 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_https_covid19_data",
-						"type": "DatasetReference"
+						"referenceName": "ds_cases_deaths_raw_csv_http",
+						"type": "DatasetReference",
+						"parameters": {
+							"Relative_URL": "covid19/nationalcasedeath/csv"
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_population_raw_tsv",
-						"type": "DatasetReference"
+						"referenceName": "dl_https_target_data",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_path": "raw",
+							"file_path_1": "ecdc",
+							"file_name": "cases_death.csv"
+						}
 					}
 				]
 			}
