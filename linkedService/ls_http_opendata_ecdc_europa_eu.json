@@ -1,6 +1,11 @@
 {
 	"name": "ls_http_opendata_ecdc_europa_eu",
 	"properties": {
+		"parameters": {
+			"RelativeURL": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
