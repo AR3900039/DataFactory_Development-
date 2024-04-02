@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy Cases And Deaths Data",
+				"name": "Copy ECDC Data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -51,39 +51,17 @@
 				"inputs": [
 					{
 						"referenceName": "ds_cases_deaths_raw_csv_http",
-						"type": "DatasetReference",
-						"parameters": {
-							"RelativeURL": {
-								"value": "@variables('SourceRelativeURL')",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ls_adls_covidreportingdl",
-						"type": "DatasetReference",
-						"parameters": {
-							"FileName": {
-								"value": "@variables('SinkFileName')",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					}
 				]
 			}
 		],
-		"variables": {
-			"SourceRelativeURL": {
-				"type": "String",
-				"defaultValue": "covid19/hospitalicuadmissionrates/csv/data.csv"
-			},
-			"SinkFileName": {
-				"type": "String",
-				"defaultValue": "hospital_admission.csv"
-			}
-		},
 		"annotations": []
 	}
 }
