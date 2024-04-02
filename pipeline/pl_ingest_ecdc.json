@@ -36,36 +36,8 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "ds_cases_deaths_raw_csv_http",
-						"type": "DatasetReference",
-						"parameters": {
-							"Relative_URL": "covid19/nationalcasedeath/csv"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "dl_https_target_data",
-						"type": "DatasetReference",
-						"parameters": {
-							"file_path": "raw",
-							"file_path_1": "ecdc",
-							"file_name": "cases_death.csv"
-						}
-					}
-				]
+					"enableStaging": false
+				}
 			}
 		],
 		"annotations": []
