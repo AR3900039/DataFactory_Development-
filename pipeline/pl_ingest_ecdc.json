@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copy Cases And Deaths Data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -28,7 +28,9 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"maxConcurrentConnections": 1,
+							"copyBehavior": "MergeFiles"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -36,10 +38,52 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
-				}
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_cases_deaths_raw_csv_http",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": {
+								"value": "@variables('SourceRelativeURL')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ls_adls_covidreportingdl",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@variables('SinkFileName')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
+		"variables": {
+			"SourceRelativeURL": {
+				"type": "String",
+				"defaultValue": "covid19/hospitalicuadmissionrates/csv/data.csv"
+			},
+			"SinkFileName": {
+				"type": "String",
+				"defaultValue": "hospital_admission.csv"
+			}
+		},
 		"annotations": []
 	}
 }
