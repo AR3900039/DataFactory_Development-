@@ -51,17 +51,37 @@
 				"inputs": [
 					{
 						"referenceName": "ds_cases_deaths_raw_csv_http",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeURL": {
+								"value": "@pipeline().parameters.SourceRelativeURL",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ls_adls_covidreportingdl",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@pipeline().parameters.SinkFileName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"SourceRelativeURL": {
+				"type": "string"
+			},
+			"SinkFileName": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
