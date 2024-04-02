@@ -1,12 +1,6 @@
 {
 	"name": "ls_https_opendata_ecdc_europa_eu",
 	"properties": {
-		"parameters": {
-			"RelativeURL": {
-				"type": "string",
-				"defaultValue": "covid19/nationalcasedeath/csv"
-			}
-		},
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
