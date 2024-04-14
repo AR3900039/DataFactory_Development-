@@ -1,0 +1,144 @@
+{
+	"name": "41 Metadata_Driven_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "lookup ecdc file list",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ecdc_file_list",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Execute Copy For Every Record",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "lookup ecdc file list",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('lookup ecdc file list').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy ECDC data",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_cases_deaths_raw_csv_http",
+									"type": "DatasetReference",
+									"parameters": {
+										"RelativeURL": {
+											"value": "@item().sourceRelativeURL",
+											"type": "Expression"
+										},
+										"baseURL": {
+											"value": "@item().sourceBaseURL",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ls_adls_covidreportingdl",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@item().sinkFileName",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"sourceRelativeURL": {
+				"type": "String"
+			},
+			"sourceBaseURL": {
+				"type": "String"
+			},
+			"sinkFileName": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
