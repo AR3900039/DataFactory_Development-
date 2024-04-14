@@ -2,7 +2,13 @@
 	"name": "tr_ecdc_data_ingest",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "41 Metadata_Driven_Pipeline",
+				"type": "PipelineReference"
+			}
+		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Minute",
