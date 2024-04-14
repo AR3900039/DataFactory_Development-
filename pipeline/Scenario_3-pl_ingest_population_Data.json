@@ -181,27 +181,6 @@
 						}
 					]
 				}
-			},
-			{
-				"name": "Fail",
-				"description": "If the file is not available then it will be through the error code as a pipeline fail",
-				"type": "Fail",
-				"dependsOn": [
-					{
-						"activity": "If Condition1",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"message": {
-						"value": "@activity('Check if the file exists').output.File",
-						"type": "Expression"
-					},
-					"errorCode": "404"
-				}
 			}
 		],
 		"annotations": [],
