@@ -13,12 +13,6 @@
 					"SourceRelativeURL": "covid19/hospitalicuadmissionrates/csv/data.csv",
 					"SinkFileName": "trigger_hospital_admission.csv"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "Scenario_3-pl_ingest_population_Data",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
