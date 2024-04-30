@@ -1,0 +1,9 @@
+{
+	"name": "covid-report-data-transfer",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "965c28d5-0193-4aa8-b2cf-afd1e5309c60",
+		"tenantId": "dc54bb2b-3999-43f2-904c-571410bc2bbc"
+	}
+}
