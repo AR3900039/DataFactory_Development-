@@ -9,11 +9,19 @@
 						"referenceName": "cases_deaths",
 						"type": "DatasetReference"
 					},
-					"name": "CasessAndDeathsource"
+					"name": "CasesAndDeathsource"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "FilterEuropeOnly",
+					"description": "fetching only Europe data"
+				},
+				{
+					"name": "SelectOnlyRequiredFields"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          country as string,",
@@ -28,8 +36,21 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false,",
-				"     skipLines: 2) ~> CasessAndDeathsource"
+				"     ignoreNoFilesFound: false) ~> CasesAndDeathsource",
+				"CasesAndDeathsource filter(continent=='Europe' && !(isNull(country_code))) ~> FilterEuropeOnly",
+				"FilterEuropeOnly select(mapColumn(",
+				"          country,",
+				"          country_code,",
+				"          continent,",
+				"          population,",
+				"          indicator,",
+				"          daily_count,",
+				"          date,",
+				"          rate_14_day,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectOnlyRequiredFields"
 			]
 		}
 	}
