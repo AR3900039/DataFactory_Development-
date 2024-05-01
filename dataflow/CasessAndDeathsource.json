@@ -28,7 +28,8 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> CasessAndDeathsource"
+				"     ignoreNoFilesFound: false,",
+				"     skipLines: 2) ~> CasessAndDeathsource"
 			]
 		}
 	}
