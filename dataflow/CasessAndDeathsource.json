@@ -19,7 +19,11 @@
 					"name": "dscountryLookup"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "CaseAndDeathSink"
+				}
+			],
 			"transformations": [
 				{
 					"name": "FilterEuropeOnly",
@@ -101,7 +105,11 @@
 				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> SelectForSink"
+				"     skipDuplicateMapOutputs: true) ~> SelectForSink",
+				"SelectForSink sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CaseAndDeathSink"
 			]
 		}
 	}
