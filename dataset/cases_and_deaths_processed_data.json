@@ -1,0 +1,26 @@
+{
+	"name": "cases_and_deaths_processed_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "target_system_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "target"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "ecdc/processed",
+				"fileSystem": "targetdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
