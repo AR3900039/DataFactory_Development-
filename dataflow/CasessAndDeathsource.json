@@ -21,6 +21,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "cases_and_deaths_processed_data",
+						"type": "DatasetReference"
+					},
 					"name": "CaseAndDeathSink"
 				}
 			],
@@ -108,6 +112,10 @@
 				"     skipDuplicateMapOutputs: true) ~> SelectForSink",
 				"SelectForSink sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     filePattern:'Cases_deaths_processed_data',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> CaseAndDeathSink"
 			]
