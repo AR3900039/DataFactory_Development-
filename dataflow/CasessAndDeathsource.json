@@ -57,10 +57,9 @@
 				"          country_code,",
 				"          population,",
 				"          source,",
-				"          reported_date,",
-				"          country_special = country+country_code),",
-				"     pivotBy(indicator, ['confirmed cases', 'confirmed deaths']),",
-				"     count = ERROR_FUNCTION(''),",
+				"          reported_date),",
+				"     pivotBy(indicator),",
+				"     count = sum(daily_count),",
 				"     columnNaming: '$V_$N',",
 				"     lateral: true) ~> PivotCounts"
 			]
