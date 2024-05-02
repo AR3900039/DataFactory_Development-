@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "CasesAndDeathsource"
+				},
+				{
+					"dataset": {
+						"referenceName": "Country_Lookup",
+						"type": "DatasetReference"
+					},
+					"name": "dscountryLookup"
 				}
 			],
 			"sinks": [],
@@ -23,6 +30,12 @@
 				},
 				{
 					"name": "PivotCounts"
+				},
+				{
+					"name": "lookup"
+				},
+				{
+					"name": "SelectForSink"
 				}
 			],
 			"scriptLines": [
@@ -40,6 +53,16 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> CasesAndDeathsource",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> dscountryLookup",
 				"CasesAndDeathsource filter(continent=='Europe' && !(isNull(country_code))) ~> FilterEuropeOnly",
 				"FilterEuropeOnly select(mapColumn(",
 				"          country,",
@@ -58,10 +81,27 @@
 				"          population,",
 				"          source,",
 				"          reported_date),",
-				"     pivotBy(indicator),",
+				"     pivotBy(indicator, ['Cases', 'death']),",
 				"     count = sum(daily_count),",
 				"     columnNaming: '$V_$N',",
-				"     lateral: true) ~> PivotCounts"
+				"     lateral: true) ~> PivotCounts",
+				"PivotCounts, dscountryLookup lookup(PivotCounts@country == dscountryLookup@country,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup",
+				"lookup select(mapColumn(",
+				"          country = PivotCounts@country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population = PivotCounts@population,",
+				"          Cases_count,",
+				"          Death_count = death_count,",
+				"          country_code,",
+				"          reported_date,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectForSink"
 			]
 		}
 	}
