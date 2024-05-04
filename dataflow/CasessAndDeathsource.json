@@ -47,6 +47,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     parameter1 as string",
+				"}",
 				"source(output(",
 				"          country as string,",
 				"          country_code as string,",
