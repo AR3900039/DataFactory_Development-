@@ -151,7 +151,10 @@
 							"outputs": [
 								{
 									"referenceName": "ls_adls_covidreportingdl",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": "population_by_age.tsv.gz"
+									}
 								}
 							]
 						}
