@@ -56,7 +56,8 @@
 							"RelativeURL": {
 								"value": "@pipeline().parameters.SourceRelativeURL",
 								"type": "Expression"
-							}
+							},
+							"baseURL": "cloudboxacademy/covid19/raw/main/ecdc_data/country_response.csv"
 						}
 					}
 				],
