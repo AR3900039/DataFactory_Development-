@@ -5,7 +5,14 @@
 			{
 				"name": "CasessAndDeathsource",
 				"type": "ExecuteDataFlow",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Validation1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -17,7 +24,13 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "CasessAndDeathsource",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"CasesAndDeathsource": {
+								"Filename": "cases_deaths.csv",
+								"source_directory": "ecdc"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
@@ -32,6 +45,14 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"dataset": {
+						"referenceName": "cases_deaths",
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "cases_deaths.csv",
+							"source_directory": "ecdc"
+						}
+					},
 					"timeout": "0.12:00:00",
 					"sleep": 10
 				}

@@ -18,7 +18,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "cases_deaths.csv",
 				"folderPath": "ecdc",
 				"container": "raw"
 			},
