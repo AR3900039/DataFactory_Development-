@@ -167,7 +167,7 @@
 				"PivotWeekly sort(desc({'reported_year_week'}, true),",
 				"     asc(country, true),",
 				"     partitionBy('hash', 1)) ~> sortweekly",
-				"DailyPivot sort(asc({'reported_year_week'}, true),",
+				"DailyPivot sort(desc({'reported_year_week'}, true),",
 				"     asc(country, true)) ~> sortDaily"
 			]
 		}
