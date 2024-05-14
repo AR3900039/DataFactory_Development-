@@ -26,7 +26,14 @@
 					"name": "DimSourceDate"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "WeeklySink"
+				},
+				{
+					"name": "DailyDataSink"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectRequiredFileds",
@@ -168,7 +175,15 @@
 				"     asc(country, true),",
 				"     partitionBy('hash', 1)) ~> sortweekly",
 				"DailyPivot sort(desc({'reported_year_week'}, true),",
-				"     asc(country, true)) ~> sortDaily"
+				"     asc(country, true)) ~> sortDaily",
+				"sortweekly sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> WeeklySink",
+				"sortDaily sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DailyDataSink"
 			]
 		}
 	}
