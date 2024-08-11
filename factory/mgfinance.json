@@ -1,0 +1,9 @@
+{
+	"name": "mgfinance",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "56467bf7-7792-409d-98eb-372057c3fb46",
+		"tenantId": "cbb9ee26-2c05-463d-af13-cc0439678ce3"
+	}
+}
