@@ -17,7 +17,9 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobStorageLocation",
+				"fileName": "cases_deaths.csv",
+				"container": "sourcedata"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
