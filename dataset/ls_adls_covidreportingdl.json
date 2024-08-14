@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "fetching the data from source URL and loading into the raw/ecdc/cases_deaths.csv",
 		"linkedServiceName": {
-			"referenceName": "datalake_target_covid_file",
+			"referenceName": "target_system_linked_service",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -19,12 +19,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().FileName",
-					"type": "Expression"
-				},
-				"folderPath": "ecdc",
-				"fileSystem": "raw"
+				"fileName": "population_by_age.tsv",
+				"fileSystem": "processedfiles"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
