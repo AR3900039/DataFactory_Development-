@@ -31,7 +31,7 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEachTable",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -46,7 +46,77 @@
 					"items": {
 						"value": "@activity('List Tables').output.value",
 						"type": "Expression"
-					}
+					},
+					"activities": [
+						{
+							"name": "Export Table",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "Generic_Sql_Table",
+									"type": "DatasetReference",
+									"parameters": {
+										"Tablename": {
+											"value": "@item().Tablename",
+											"type": "Expression"
+										},
+										"Schemaname": {
+											"value": "@item().Schemaname",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "csvtable1",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().Tablename,'_',item().Tablename,'.csv')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
 				}
 			}
 		],
